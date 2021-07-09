@@ -959,7 +959,7 @@ class ImageRequest private constructor(
                 if (view is ImageView) return view.scale
             }
 
-            return Scale.FILL
+            return Scale.FIT
         }
     }
 }
