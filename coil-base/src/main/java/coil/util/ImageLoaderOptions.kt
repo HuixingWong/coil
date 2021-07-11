@@ -11,10 +11,12 @@ import coil.decode.BitmapFactoryDecoder.Companion.DEFAULT_MAX_PARALLELISM
  */
 internal class ImageLoaderOptions(
     val addLastModifiedToFileCacheKey: Boolean = true,
-    val bitmapFactoryMaxParallelism: Int = DEFAULT_MAX_PARALLELISM
+    val networkObserverEnabled: Boolean = true,
+    val bitmapFactoryMaxParallelism: Int = DEFAULT_MAX_PARALLELISM,
 ) {
     fun copy(
         addLastModifiedToFileCacheKey: Boolean = this.addLastModifiedToFileCacheKey,
-        bitmapFactoryMaxParallelism: Int = this.bitmapFactoryMaxParallelism
-    ) = ImageLoaderOptions(addLastModifiedToFileCacheKey, bitmapFactoryMaxParallelism)
+        networkObserverEnabled: Boolean = this.networkObserverEnabled,
+        bitmapFactoryMaxParallelism: Int = this.bitmapFactoryMaxParallelism,
+    ) = ImageLoaderOptions(addLastModifiedToFileCacheKey, networkObserverEnabled, bitmapFactoryMaxParallelism)
 }

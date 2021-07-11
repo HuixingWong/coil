@@ -8,7 +8,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.net.toUri
 import coil.request.Options
 
-internal class ResourceIntMapper : Mapper<@DrawableRes Int, Uri> {
+internal class ResourceIntMapper : Mapper<Int, Uri> {
 
     override fun map(@DrawableRes data: Int, options: Options): Uri? {
         if (!isApplicable(data, options.context)) return null

@@ -7,6 +7,7 @@
 sed -e '/full documentation here/ { N; d; }' < README.md > docs/index.md
 cp CONTRIBUTING.md docs/contributing.md
 cp CHANGELOG.md docs/changelog.md
+cp coil-compose-singleton/README.md docs/compose.md
 cp coil-gif/README.md docs/gifs.md
 cp coil-svg/README.md docs/svgs.md
 cp coil-video/README.md docs/videos.md
@@ -18,4 +19,13 @@ cp README-zh.md docs/README-zh.md
 mkdocs gh-deploy
 
 # Clean up.
-rm docs/index.md docs/contributing.md docs/changelog.md docs/logo.svg docs/gifs.md docs/svgs.md docs/videos.md docs/README-ko.md docs/README-zh.md
+rm docs/index.md \
+   docs/contributing.md \
+   docs/changelog.md \
+   docs/compose.md \
+   docs/logo.svg \
+   docs/gifs.md \
+   docs/svgs.md \
+   docs/videos.md \
+   docs/README-ko.md \
+   docs/README-zh.md

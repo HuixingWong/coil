@@ -72,7 +72,7 @@ internal class RealImageLoader(
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate +
         CoroutineExceptionHandler { _, throwable -> logger?.log(TAG, throwable) })
-    private val systemCallbacks = SystemCallbacks(this, context)
+    private val systemCallbacks = SystemCallbacks(this, context, options.networkObserverEnabled)
     private val requestService = RequestService(this, systemCallbacks, logger)
     override val components = componentRegistry.newBuilder()
         // Mappers

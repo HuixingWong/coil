@@ -6,8 +6,6 @@ import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 fun Project.setupLibraryModule(block: LibraryExtension.() -> Unit = {}) {
@@ -72,14 +70,10 @@ private inline fun <reified T : BaseExtension> Project.setupBaseModule(crossinli
             }
             freeCompilerArgs = arguments
         }
-        testOptions {
-            unitTests.all { test ->
-                test.testLogging {
-                    exceptionFormat = TestExceptionFormat.FULL
-                    events = setOf(TestLogEvent.SKIPPED, TestLogEvent.PASSED, TestLogEvent.FAILED)
-                    showStandardStreams = true
-                }
-            }
+        packagingOptions {
+            resources.pickFirsts += "META-INF/AL2.0"
+            resources.pickFirsts += "META-INF/LGPL2.1"
+            resources.pickFirsts += "META-INF/*kotlin_module"
         }
         (this as T).block()
     }

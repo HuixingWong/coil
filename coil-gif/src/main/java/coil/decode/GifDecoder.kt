@@ -15,19 +15,29 @@ import coil.request.repeatCount
 import coil.util.animatable2CompatCallbackOf
 import coil.util.isHardware
 import kotlinx.coroutines.runInterruptible
+import okio.buffer
 
 /**
  * A [Decoder] that uses [Movie] to decode GIFs.
  *
  * NOTE: Prefer using [ImageDecoderDecoder] on API 28 and above.
+ *
+ * @param enforceMinimumFrameDelay If true, rewrite a GIF's frame delay to a default value if
+ *  it is below a threshold. See https://github.com/coil-kt/coil/issues/540 for more info.
  */
 class GifDecoder(
     private val source: ImageSource,
-    private val options: Options
+    private val options: Options,
+    private val enforceMinimumFrameDelay: Boolean
 ) : Decoder {
 
     override suspend fun decode() = runInterruptible {
-        val movie: Movie? = source.source().use { Movie.decodeStream(it.inputStream()) }
+        val bufferedSource = if (enforceMinimumFrameDelay) {
+            FrameDelayRewritingSource(source.source()).buffer()
+        } else {
+            source.source()
+        }
+        val movie: Movie? = bufferedSource.use { Movie.decodeStream(it.inputStream()) }
 
         check(movie != null && movie.width() > 0 && movie.height() > 0) { "Failed to decode GIF." }
 
@@ -59,11 +69,13 @@ class GifDecoder(
         )
     }
 
-    class Factory : Decoder.Factory {
+    class Factory @JvmOverloads constructor(
+        private val enforceMinimumFrameDelay: Boolean = false
+    ) : Decoder.Factory {
 
         override fun create(result: SourceResult, options: Options, imageLoader: ImageLoader): Decoder? {
             if (!DecodeUtils.isGif(result.source.source())) return null
-            return GifDecoder(result.source, options)
+            return GifDecoder(result.source, options, enforceMinimumFrameDelay)
         }
 
         override fun equals(other: Any?) = other is Factory

@@ -28,7 +28,7 @@ class Application : Application(), ImageLoaderFactory {
                 if (SDK_INT >= 28) {
                     add(ImageDecoderDecoder.Factory())
                 } else {
-                    add(GifDecoder.Factory())
+                    add(GifDecoder.Factory(enforceMinimumFrameDelay = true))
                 }
                 // SVGs
                 add(SvgDecoder.Factory())

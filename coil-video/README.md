@@ -3,7 +3,7 @@
 To add video frame support, import the extension library:
 
 ```kotlin
-implementation("io.coil-kt:coil-video:1.2.2")
+implementation("io.coil-kt:coil-video:1.3.0")
 ```
 
 And add the decoder to your component registry when constructing your `ImageLoader`:
@@ -26,4 +26,4 @@ imageView.load(File("/path/to/video.mp4")) {
 
 If a frame time isn't specified, the first frame of the video is decoded.
 
-The `ImageLoader` will automatically detect any videos and extract their frames if the request's filename/URI ends with a [valid video extension](https://developer.android.com/guide/topics/media/media-formats#video-formats). If it does not, you can [set the `Decoder` explicitly](../api/coil-base/coil-base/coil.request/-image-request/-builder/decoder-factory.html) for the request.
+The `ImageLoader` will automatically detect any videos and extract their frames if the request's filename/URI ends with a [valid video extension](https://developer.android.com/guide/topics/media/media-formats#video-formats). If it does not, you can [set the `Decoder` explicitly](../api/coil-base/coil.request/-image-request/-builder/decoder-factory.html) for the request.
