@@ -2,7 +2,6 @@ package coil.decode
 
 import android.graphics.ImageDecoder
 import android.graphics.drawable.AnimatedImageDrawable
-import android.graphics.drawable.Drawable
 import android.os.Build.VERSION.SDK_INT
 import androidx.annotation.RequiresApi
 import androidx.core.graphics.decodeDrawable
@@ -37,10 +36,10 @@ import kotlin.math.roundToInt
  *  it is below a threshold. See https://github.com/coil-kt/coil/issues/540 for more info.
  */
 @RequiresApi(28)
-class ImageDecoderDecoder(
+class ImageDecoderDecoder @JvmOverloads constructor(
     private val source: ImageSource,
     private val options: Options,
-    private val enforceMinimumFrameDelay: Boolean
+    private val enforceMinimumFrameDelay: Boolean = true
 ) : Decoder {
 
     override suspend fun decode(): DecodeResult {
@@ -133,7 +132,7 @@ class ImageDecoderDecoder(
 
     @RequiresApi(28)
     class Factory @JvmOverloads constructor(
-        private val enforceMinimumFrameDelay: Boolean = false
+        private val enforceMinimumFrameDelay: Boolean = true
     ) : Decoder.Factory {
 
         override fun create(result: SourceResult, options: Options, imageLoader: ImageLoader): Decoder? {

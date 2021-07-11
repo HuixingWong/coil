@@ -501,7 +501,7 @@ class EngineInterceptorTest {
                 add(Keyer { _: Any, _ -> key })
             }
             .build()
-        val systemCallbacks = SystemCallbacks(imageLoader as RealImageLoader, context)
+        val systemCallbacks = SystemCallbacks(imageLoader as RealImageLoader, context, true)
         return EngineInterceptor(
             imageLoader = imageLoader,
             requestService = RequestService(imageLoader, systemCallbacks, null),
